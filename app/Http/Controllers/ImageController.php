@@ -151,15 +151,24 @@ class ImageController extends Controller
             abort(403, 'THIS ACTION IS UNAUTHORIZED.');
         }
     
+        $is_adult = $request->has('is_adult') && $request->get('is_adult') === 'on';
         $image->update([
             'title' => $request->title,
             'description' => $request->description,
+            'is_adult' => $is_adult,
             // Другие поля для обновления...
         ]);
-    
+
+        $image->tags()->detach();
         // Обновление тегов, если они предоставлены
         if ($request->has('tags')) {
-            // код для обновления тегов
+            $tagNames = explode(',', $request->tags);
+            $tagIds = [];
+            foreach ($tagNames as $tagName) {
+                $tag = Tag::firstOrCreate(['name' => trim($tagName)]);
+                array_push($tagIds, $tag->tag_id);
+            }
+            $image->tags()->sync($tagIds);
         }
     
         return redirect()->route('images.show', $image->image_id)
@@ -196,9 +205,4 @@ class ImageController extends Controller
     
         return redirect()->route('home.index')->with('success', 'Изображение успешно удалено.');
     }
-    
-    
-
-    
-    
 }

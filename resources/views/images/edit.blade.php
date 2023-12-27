@@ -37,7 +37,7 @@
 
         <div class="adult-content-toggle">
             <label class="switch">
-                <input type="checkbox" name="is_adult" id="is_adult">
+            <input type="checkbox" name="is_adult" id="is_adult" {{ $image->is_adult ? 'checked' : '' }}>
                 <span class="slider"></span>
             </label>
             <label for="is_adult" class="adult-content-label">Контент для взрослых</label>
