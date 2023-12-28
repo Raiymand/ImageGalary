@@ -73,7 +73,7 @@ Route::get('/albums/{album}', [AlbumController::class, 'show'])->name('albums.sh
 Route::get('/albums', [AlbumController::class, 'index'])->name('albums.index');
 
 // Маршрут для страницы профиля пользователя
-Route::get('/profile/{userId}', [ProfileController::class, 'show'])->name('profile.show')->middleware('auth');
+Route::get('/profile/{userId}', [ProfileController::class, 'show'])->name('profile.show');
 
 // Маршрут для блокировки пользователя администратором
 Route::post('/admin/block-user/{userId}', [AdminController::class, 'blockUser'])->name('admin.blockUser');
