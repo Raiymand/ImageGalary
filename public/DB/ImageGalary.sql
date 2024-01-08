@@ -1942,9 +1942,9 @@ CREATE TABLE `Users` (
 --
 
 INSERT INTO `Users` (`user_id`, `username`, `email`, `password`, `age`, `is_admin`, `created_at`, `updated_at`, `is_blocked`, `block_reason`, `blocked_until`, `block_level`) VALUES
-(1, 'adminlvl3', 'adminlvl3@gmail.com', '$2y$10$lamm6iax7d4DBefBFlAbsOksFfGUJNCfgz.GFfdEP0XxYXdTur/Y6', 22, 0, '2023-12-27 15:29:23', '2023-12-27 15:29:23', 0, NULL, NULL, 0),
-(2, 'adminlvl2', 'adminlvl2@gmail.com', '$2y$10$x4AVLFmC3NxA0DEruGJ9z.3NDhh7FtFVmCvB2WRSTZYNxKNLDQYia', 20, 0, '2023-12-27 15:30:19', '2023-12-27 15:30:19', 0, NULL, NULL, 0),
-(3, 'adminlvl1', 'adminlvl1@gmail.com', '$2y$10$SJACt2w2kcAtgUvTxakXpeZ7/.YL4aSa9Bj3NjN7WwUbJwCo98lLW', 21, 0, '2023-12-27 15:31:14', '2023-12-27 15:31:14', 0, NULL, NULL, 0),
+(1, 'adminlvl3', 'adminlvl3@gmail.com', '$2y$10$lamm6iax7d4DBefBFlAbsOksFfGUJNCfgz.GFfdEP0XxYXdTur/Y6', 22, 1, '2023-12-27 15:29:23', '2023-12-27 15:29:23', 0, NULL, NULL, 0),
+(2, 'adminlvl2', 'adminlvl2@gmail.com', '$2y$10$x4AVLFmC3NxA0DEruGJ9z.3NDhh7FtFVmCvB2WRSTZYNxKNLDQYia', 20, 1, '2023-12-27 15:30:19', '2023-12-27 15:30:19', 0, NULL, NULL, 0),
+(3, 'adminlvl1', 'adminlvl1@gmail.com', '$2y$10$SJACt2w2kcAtgUvTxakXpeZ7/.YL4aSa9Bj3NjN7WwUbJwCo98lLW', 21, 1, '2023-12-27 15:31:14', '2023-12-27 15:31:14', 0, NULL, NULL, 0),
 (4, '￦ANKE', 'user1@gmail.com', '$2y$10$xduKcxOd8WcTtBKRoxlVo.YWbdj8mH57GJ0btBWspNSGUEI44Py8C', 19, 0, '2023-12-27 15:33:39', '2023-12-27 15:33:39', 0, NULL, NULL, 0),
 (5, 'Kron', 'user2@gmail.com', '$2y$10$z9WstwcBKfqfESj1KTUQZuW/sCBTIdkYodqpu5R/hfUs.76d9/8cq', 23, 0, '2023-12-27 15:46:03', '2023-12-27 15:46:03', 0, NULL, NULL, 0),
 (6, 'Mery', 'user3@gmail.com', '$2y$10$7Ft0ygZx.1kV2s9/COLOR.DUQQWdAcQAVjqyy7FvqagqZptwuQtAi', 23, 0, '2023-12-27 15:55:55', '2023-12-27 15:55:55', 0, NULL, NULL, 0),
