@@ -89,10 +89,12 @@ CREATE TABLE Comments (
     user_id INT,
     image_id INT,
     comment TEXT,
+    parent_id INT NULL,
     commented_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     FOREIGN KEY (user_id) REFERENCES Users(user_id) ON DELETE CASCADE,
-    FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE
+    FOREIGN KEY (image_id) REFERENCES Images(image_id) ON DELETE CASCADE,
+    FOREIGN KEY (parent_id) REFERENCES Comments(comment_id) ON DELETE CASCADE
 );
 
 
