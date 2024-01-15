@@ -14,17 +14,20 @@ class CommentController extends Controller
     public function store(Request $request, $imageId)
     {
         $request->validate([
-            'comment' => 'required|string|max:1000', // Установите ограничения по своему усмотрению
+            'comment' => 'required|string|max:1000',
+            'parent_id' => 'nullable|exists:comments,comment_id' // Проверка на существование родительского комментария
         ]);
-
+    
         Comment::create([
             'user_id' => Auth::id(),
             'image_id' => $imageId,
             'comment' => $request->comment,
+            'parent_id' => $request->parent_id 
         ]);
-
-        return back()->with('success', 'Комментарий добавлен');
+    
+        return redirect()->back()->with('success', 'Комментарий добавлен');
     }
+    
 
     // Редактирование комментария (если требуется)
     public function edit($id)
@@ -49,8 +52,6 @@ class CommentController extends Controller
         }
     }
     
-
-
     // Удаление комментария
     public function destroy($comment_id)
     {

@@ -55,35 +55,47 @@ class AlbumController extends Controller
     public function show($albumId, Request $request)
     {
         $sort = $request->query('sort', 'newest');
-        $album = Album::with(['images' => function ($query) use ($sort) {
+        $userIsAuthenticated = Auth::check();
+        $userIsAdult = $userIsAuthenticated && Auth::user()->age >= 18;
+    
+        $album = Album::with(['images' => function ($query) use ($sort, $userIsAdult, $userIsAuthenticated) {
+            if ($userIsAuthenticated && !$userIsAdult) {
+                // Если пользователь зарегистрирован и младше 18 лет, исключаем контент для взрослых
+                $query->where('is_adult', false);
+            }
+    
             switch ($sort) {
                 case 'popular_all_time':
                     $query->withCount('likes')
-                          ->orderBy('likes_count', 'desc');
+                        ->orderBy('likes_count', 'desc');
                     break;
                 case 'popular_year':
                     $query->withCount('likes')
-                          ->where('upload_date', '>', Carbon::now()->subYear())
-                          ->orderBy('likes_count', 'desc');
+                        ->where('upload_date', '>', Carbon::now()->subYear())
+                        ->orderBy('likes_count', 'desc');
                     break;
                 case 'popular_month':
                     $query->withCount('likes')
-                          ->where('upload_date', '>', Carbon::now()->subMonth())
-                          ->orderBy('likes_count', 'desc');
+                        ->where('upload_date', '>', Carbon::now()->subMonth())
+                        ->orderBy('likes_count', 'desc');
                     break;
                 case 'popular_week':
                     $query->withCount('likes')
-                          ->where('upload_date', '>', Carbon::now()->subWeek())
-                          ->orderBy('likes_count', 'desc');
+                        ->where('upload_date', '>', Carbon::now()->subWeek())
+                        ->orderBy('likes_count', 'desc');
                     break;
                 default:
                     $query->orderBy('upload_date', 'desc');
                     break;
             }
         }])->findOrFail($albumId);
-
-        return view('albums.album', compact('album'));
+    
+        // Определяем, следует ли применять блюр к изображениям для взрослых
+        $showBlur = !$userIsAuthenticated;
+    
+        return view('albums.album', compact('album', 'showBlur'));
     }
+    
 
 
     public function edit($id)

@@ -180,3 +180,7 @@ function deleteComment(commentId) {
     }
 }
 
+function showReplyForm(commentId) {
+    var form = document.getElementById('reply-form-' + commentId);
+    form.style.display = form.style.display === 'none' ? 'block' : 'none';
+}

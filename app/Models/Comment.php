@@ -17,8 +17,9 @@ class Comment extends Model
         'user_id',
         'image_id',
         'comment',
-        // Другие поля, которые можно назначать массово
+        'parent_id', // Убедитесь, что 'parent_id' указано здесь
     ];
+    
 
     protected $dates = [
         'commented_at',
@@ -35,5 +36,14 @@ class Comment extends Model
         return $this->belongsTo(Image::class, 'image_id');
     }
 
+    public function parent()
+    {
+        return $this->belongsTo(Comment::class, 'parent_id');
+    }
+
+    public function replies()
+    {
+        return $this->hasMany(Comment::class, 'parent_id')->with('replies');
+    }
     // Возможные дополнительные методы и связи 
 }

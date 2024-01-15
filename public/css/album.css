@@ -67,3 +67,8 @@ body {
 .image-container:hover .image-title {
     display: block;
 }
+
+.blurred {
+    filter: blur(20px); /* Значение размытия можно настроить */
+    overflow: hidden; /* Убедитесь, что размытие не выходит за границы изображения */
+}

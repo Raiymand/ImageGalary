@@ -17,6 +17,21 @@ class ProfileController extends Controller
             return redirect()->back()->withErrors(['error' => 'Пользователь не найден']);
         }
 
+        // Определение возраста текущего авторизованного пользователя
+        $currentUser = Auth::user();
+        $userIsAdult = $currentUser && $currentUser->age >= 18;
+
+        // Фильтрация изображений для взрослых для несовершеннолетних пользователей
+        if (!$userIsAdult) {
+            $user->images = $user->images->where('is_adult', false);
+            $user->favorites = $user->favorites->filter(function ($favorite) {
+                return !$favorite->image->is_adult;
+            });
+            $user->likes = $user->likes->filter(function ($like) {
+                return !$like->image->is_adult;
+            });
+        }
+
         // Передаем данные в представление
         return view('profile.profile', [
             'user' => $user,
@@ -25,6 +40,7 @@ class ProfileController extends Controller
             'likedImages' => $user->likes->pluck('image')
         ]);
     }
+
 
     public function blockUser(Request $request, $userId)
     {

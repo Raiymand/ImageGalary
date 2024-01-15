@@ -193,6 +193,7 @@ body {
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 10px;
+    margin-top: 10px;
 }
 
 /* Стили для текстового поля и кнопки формы */
@@ -230,7 +231,21 @@ body {
     border-radius: 10px;
     padding: 10px;
     margin-bottom: 15px;
-    color: black;
+    position: relative;
+}
+
+/* Стили для ответов на комментарии */
+.reply {
+    background-color: #f9f9f9;
+    border-left: 3px solid #ddd;
+    margin-left: 20px;
+    padding-left: 10px;
+    position: relative;
+}
+
+/* Улучшение отображения вложенных комментариев */
+.reply .reply {
+    margin-top: 10px;
 }
 
 .comment-content {
@@ -309,6 +324,7 @@ a:hover {
 }
 
 .delete-comment-button {
+    font-family: 'Comfortaa', sans-serif; /* Установка шрифта Comfortaa */
     padding: 5px 10px;
     background-color: #e57373; /* Красный цвет */
     color: white;
@@ -322,11 +338,27 @@ a:hover {
     background-color: #d32f2f; /* Темнее красный при наведении */
 }
 
-.comment-actions {
-    margin-top: 10px;
+.reply-button {
+    font-family: 'Comfortaa', sans-serif; /* Установка шрифта Comfortaa */
+    padding: 5px 10px;
+    background-color: #333; /* Красный цвет */
+    color: white;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
+.reply-button:hover {
+    background-color: #555;
+}
 
+.comment-actions {
+    margin-top: 10px;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
 
 .likes-container, .favorites-container {
     position: absolute;
@@ -418,4 +450,5 @@ a:hover {
 .favorites-container .icon:hover, .icon.favorited {
     color: #ffd700;
 }
+
 

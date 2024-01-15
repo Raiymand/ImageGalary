@@ -101,41 +101,22 @@
         </div>
     </div>
     <div class="comments-section">
-        {{-- Форма для добавления комментариев --}}
-        @if ($userIsAuthenticated)
-            <form action="{{ route('comments.store', $image->image_id) }}" method="post">
-                @csrf
-                <textarea name="comment" placeholder="Добавьте комментарий..."></textarea>
-                <button type="submit">Отправить</button>
-            </form>
-        @endif
+    {{-- Форма для добавления комментариев --}}
+    @if ($userIsAuthenticated)
+        <form action="{{ route('comments.store', $image->image_id) }}" method="post">
+            @csrf
+            <textarea name="comment" placeholder="Добавьте комментарий..."></textarea>
+            <button type="submit">Отправить</button>
+        </form>
+    @endif
 
-        {{-- Комментарии --}}
-        <div class="comments">
-            @foreach ($image->comments as $comment)
-                <div class="comment" id="comment-{{ $comment->comment_id }}">
-                    <p><strong><a href="/profile/{{ $comment->user->user_id }}">{{ $comment->user->username }}</a>:</strong></p>
-                    <div class="comment-content">{{ $comment->comment }}</div>
-                    <div class="comment-actions">
-                        {{-- Проверка на владельца комментария --}}
-                        @if ($currentUser && $currentUser->user_id === $comment->user_id)
-                            <button class="edit-comment-button" onclick="editComment({{ $comment->comment_id }})">Редактировать</button>
-                        @endif
-
-                        {{-- Проверка на владельца комментария или администратора 1 уровня и выше --}}
-                        @php
-                            $canDeleteComment = $currentUser && ($currentUser->user_id === $comment->user_id || 
-                            ($currentUser->administrator && $currentUser->administrator->privileges_level >= 1));
-                        @endphp
-                        @if ($canDeleteComment)
-                            <button class="delete-comment-button" onclick="deleteComment({{ $comment->comment_id }})">Удалить</button>
-                        @endif
-                    </div>
-                </div>
-            @endforeach
-        </div>
-
+    {{-- Комментарии и ответы на комментарии --}}
+    <div class="comments">
+        @foreach ($image->comments as $comment)
+            @include('images.comment', ['comment' => $comment])
+        @endforeach
     </div>
+</div>
 </div>
 <script src="{{ asset('js/show.js') }}"></script>
 </body>
