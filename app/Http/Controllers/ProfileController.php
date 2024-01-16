@@ -12,17 +12,16 @@ class ProfileController extends Controller
     public function show($userId)
     {
         $user = User::with(['images', 'favorites.image', 'likes.image'])->find($userId);
-
         if (!$user) {
             return redirect()->back()->withErrors(['error' => 'Пользователь не найден']);
         }
-
-        // Определение возраста текущего авторизованного пользователя
+    
         $currentUser = Auth::user();
         $userIsAdult = $currentUser && $currentUser->age >= 18;
-
+        $userIsAuthenticated = Auth::check();
+    
         // Фильтрация изображений для взрослых для несовершеннолетних пользователей
-        if (!$userIsAdult) {
+        if ($userIsAuthenticated && !$userIsAdult) {
             $user->images = $user->images->where('is_adult', false);
             $user->favorites = $user->favorites->filter(function ($favorite) {
                 return !$favorite->image->is_adult;
@@ -31,16 +30,29 @@ class ProfileController extends Controller
                 return !$like->image->is_adult;
             });
         }
+    
+        // Определяем, следует ли применять блюр к изображениям для взрослых
+        $showBlur = !$userIsAuthenticated;
 
-        // Передаем данные в представление
+        // Установка свойства show_blur для каждого изображения
+        $user->images->each(function ($image) use ($showBlur) {
+            $image->show_blur = $showBlur && $image->is_adult;
+        });
+        $user->favorites->each(function ($favorite) use ($showBlur) {
+            $favorite->image->show_blur = $showBlur && $favorite->image->is_adult;
+        });
+        $user->likes->each(function ($like) use ($showBlur) {
+            $like->image->show_blur = $showBlur && $like->image->is_adult;
+        });
+    
         return view('profile.profile', [
             'user' => $user,
             'uploadedImages' => $user->images,
             'favoriteImages' => $user->favorites->pluck('image'),
-            'likedImages' => $user->likes->pluck('image')
+            'likedImages' => $user->likes->pluck('image'),
         ]);
     }
-
+    
 
     public function blockUser(Request $request, $userId)
     {
