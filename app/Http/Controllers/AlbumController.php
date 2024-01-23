@@ -25,6 +25,7 @@ class AlbumController extends Controller
     
         return view('albums.albums', compact('albums'));
     }
+    
     public function create()
     {
         return view('albums.create');

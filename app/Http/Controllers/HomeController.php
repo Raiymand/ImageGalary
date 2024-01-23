@@ -16,6 +16,9 @@ class HomeController extends Controller
         // Получение параметров сортировки из запроса
         $sort = $request->query('sort', 'newest');
         $tagQuery = $request->query('tag');
+
+        // Получаем новый параметр запроса для режима поиска
+        $searchMode = $request->query('search_mode', 'all'); // по умолчанию 'all'
         
         $userIsAuthenticated = Auth::check();
         // Определение возраста пользователя
@@ -43,7 +46,16 @@ class HomeController extends Controller
                 }
             }
     
-            if (!empty($includeTags)) {
+            // Модификация логики поиска в зависимости от режима
+            if ($searchMode === 'exact' && !empty($includeTags)) {
+                // Точный поиск: изображения должны содержать все указанные теги
+                foreach ($includeTags as $tag) {
+                    $query->whereHas('tags', function ($q) use ($tag) {
+                        $q->where('name', $tag);
+                    });
+                }
+            } elseif ($searchMode === 'all' && !empty($includeTags)) {
+                // Общий поиск: изображения содержат хотя бы один из тегов
                 $query->where(function ($query) use ($includeTags) {
                     foreach ($includeTags as $tag) {
                         $query->orWhereHas('tags', function ($q) use ($tag) {
@@ -52,6 +64,7 @@ class HomeController extends Controller
                     }
                 });
             }
+            
     
             foreach ($excludeTags as $tag) {
                 $query->whereDoesntHave('tags', function ($q) use ($tag) {

@@ -21,11 +21,16 @@
         </div>
         
         <div class="search-bar">
-            <i class="fas fa-search search-icon" id="search-icon"></i>
-            <form id="tag-search-form" action="/" method="GET">
-                <input type="text" name="tag" placeholder="Поиск по тегам..." class="search-input" id="search-input">
-            </form>
-        </div>
+    <form id="tag-search-form" action="/" method="GET" class="search-form">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" name="tag" placeholder="Поиск по тегам..." class="search-input" id="search-input">
+        <select name="search_mode" onchange="this.form.submit()" class="search-mode-select">
+            <option value="all" {{ request()->get('search_mode', 'all') == 'all' ? 'selected' : '' }}>Общий поиск</option>
+            <option value="exact" {{ request()->get('search_mode') == 'exact' ? 'selected' : '' }}>Точный поиск</option>
+        </select>
+    </form>
+</div>
+
 
 
         @php

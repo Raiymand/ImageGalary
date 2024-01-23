@@ -21,7 +21,6 @@ use App\Http\Controllers\BlockedUserController;
 Route::get('/register', [App\Http\Controllers\Auth\RegisterController::class, 'showRegistrationForm'])->name('register');
 Route::post('/register', [App\Http\Controllers\Auth\RegisterController::class, 'register']);
 
-
 // Веб-маршруты для аутентификации
 Route::group(['namespace' => 'Auth'], function () {
     Route::get('login', [LoginController::class, 'showLoginForm'])->name('login');

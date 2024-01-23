@@ -53,12 +53,14 @@ body {
 }
 
 .search-input {
+    flex-grow: 1;
     width: 100%;
     padding: 5px 10px 5px 30px; /* Добавить отступ слева для иконки */
     border: 1px solid #ccc;
     border-radius: 15px;
     background-color: #fff9f0;
     color: #333;
+    margin-right: 10px;
 }
 
 .search-icon {
@@ -68,6 +70,7 @@ body {
     transform: translateY(-50%);
     color: #333;
     cursor: pointer; /* Добавляем указатель курсора */
+    
 }
 
 .search-bar input {
@@ -104,4 +107,21 @@ body {
 .no-style-link {
     text-decoration: none; /* Убирает подчеркивание ссылки */
     color: inherit; /* Наследует цвет текста от родительского элемента */
+}
+
+/* Стили для выпадающего списка выбора режима поиска */
+.search-form {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.search-mode-select {
+    border: 1px solid #ccc;
+    border-radius: 15px;
+    background-color: #fff9f0;
+    padding: 5px 10px;
+    font-family: 'Comfortaa', sans-serif;
+    font-size: 16px;
+    margin-right: -10px;
 }
