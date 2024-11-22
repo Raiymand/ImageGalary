@@ -12,12 +12,12 @@
 <div class="auth-container">
     <form method="POST" action="{{ route('login') }}" class="auth-form">
         @csrf
-        <h2 class="auth-title">Login</h2>
+        <h2 class="auth-title">Авторизоваться</h2>
 
-        <input type="email" name="email" placeholder="Email" required autofocus value="{{ old('email') }}">
-        <input type="password" name="password" placeholder="Password" required>
+        <input type="email" name="email" placeholder="Электронная почта" required autofocus value="{{ old('email') }}">
+        <input type="password" name="password" placeholder="Пароль" required>
 
-        <button type="submit" class="auth-button">Login</button>
+        <button type="submit" class="auth-button">Авторизоваться</button>
 
         @if ($errors->any())
             <div class="error-messages">
@@ -28,7 +28,7 @@
         @endif
 
         <div class="auth-link">
-            <p>Don't have an account? <a href="{{ route('register') }}">Sign up</a></p>
+            <p>У вас нет учетной записи? <a href="{{ route('register') }}">Зарегистрироваться</a></p>
         </div>
     </form>
 </div>

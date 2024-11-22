@@ -12,15 +12,15 @@
 <div class="auth-container">
     <form method="POST" action="{{ route('register') }}" class="auth-form">
         @csrf
-        <h2 class="auth-title">Sign up</h2>
+        <h2 class="auth-title">Регистрация</h2>
 
-        <input type="text" name="username" placeholder="Username" required autofocus value="{{ old('username') }}">
-        <input type="email" name="email" placeholder="Email" required value="{{ old('email') }}">
-        <input type="password" name="password" placeholder="Password" required>
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" required>
-        <input type="number" name="age" placeholder="Age" required value="{{ old('age') }}">
+        <input type="text" name="username" placeholder="Имя пользователя" required autofocus value="{{ old('username') }}">
+        <input type="email" name="email" placeholder="Электронная почта" required value="{{ old('email') }}">
+        <input type="password" name="password" placeholder="Пароль" required>
+        <input type="password" name="password_confirmation" placeholder="Подтвердите пароль" required>
+        <input type="number" name="age" placeholder="Возраст" required value="{{ old('age') }}">
 
-        <button type="submit" class="auth-button">SIGN UP</button>
+        <button type="submit" class="auth-button">Зарегистрироваться</button>
 
         @if($errors->any())
             <div class="error-messages">
@@ -31,7 +31,7 @@
         @endif
 
         <div class="auth-link">
-            <p>Already have an account? <a href="{{ route('login') }}">Sign in</a></p>
+            <p>У вас уже есть учетная запись? <a href="{{ route('login') }}">Авторизоваться</a></p>
         </div>
     </form>
 </div>
